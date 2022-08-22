@@ -9,6 +9,8 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: ['./tsconfig.json', './main/tsconfig.json'],
+    tsconfigRootDir: '.',
   },
   plugins: ['react'],
   rules: {
