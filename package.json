@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "main": "build/main/main.js",
   "scripts": {
-    "dev": "set NODE_ENV=development && npm run main:dev:build && concurrently \"npm run main:dev:watch\" \"npm run renderer:dev\" \"npm run main:dev:nodemon\"",
-    "main:dev:build": "tsc --build main/tsconfig.json",
+    "dev": "set NODE_ENV=development && npm run main:build && concurrently \"npm run main:dev:watch\" \"npm run renderer:dev\" \"npm run main:dev:nodemon\"",
+    "main:build": "tsc --build main/tsconfig.json",
     "main:dev:watch": "tsc --watch --project main/tsconfig.json",
     "main:dev:nodemon": "NODE_ENV=development nodemon --watch build/main -e ts,js --exec 'electron .'",
     "renderer:dev": "vite",
@@ -13,12 +13,11 @@
     "renderer:preview": "vite preview",
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "npm run main:build && npm run renderer:build && electron-forge make"
   },
   "dependencies": {
     "classnames": "^2.3.1",
     "daisyui": "^2.24.0",
-    "electron": "^20.0.3",
     "electron-compile": "^6.4.4",
     "electron-context-menu": "^3.5.0",
     "electron-squirrel-startup": "^1.0.0",
@@ -30,6 +29,11 @@
     "react-use": "^17.4.0"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.65",
+    "@electron-forge/maker-deb": "^6.0.0-beta.65",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.65",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.65",
+    "@electron-forge/maker-zip": "^6.0.0-beta.65",
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
     "@tsconfig/node16": "^1.0.3",
     "@types/node": "^18.7.9",
@@ -40,6 +44,7 @@
     "autoprefixer": "^10.4.8",
     "concurrently": "^7.3.0",
     "cross-env": "~7.0.3",
+    "electron": "^20.0.3",
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^22.0.0",
@@ -56,5 +61,32 @@
     "tailwindcss": "^3.1.8",
     "typescript": "^4.7.4",
     "vite": "^3.0.7"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "react_electron_ts"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }

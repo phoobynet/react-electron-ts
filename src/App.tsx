@@ -1,19 +1,10 @@
-import { useEffect, useState } from 'react'
-
-const { ipcRenderer } = window.require('electron')
+import Home from '@/pages/Home'
+import { Route, Routes } from 'react-router-dom'
 
 export default function App() {
-  const [data, setData] = useState<{ message: string }>()
-
-  useEffect(() => {
-    ;(async () => {
-      setData(await ipcRenderer.invoke('foo'))
-    })()
-  }, [])
-
   return (
-    <>
-      <div>Hello, {data?.message}!</div>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
   )
 }

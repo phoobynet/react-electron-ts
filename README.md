@@ -18,11 +18,23 @@
 npm i
 ```
 
-## Renderer code
+## Development
+
+```bash
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+## IPCRenderer code
 
 Under the `src` directory
 
-## Main code
+## IPCMain code
 
 Under the `main` directory
 
