@@ -4,7 +4,7 @@ import contextMenu from 'electron-context-menu'
 import * as path from 'path'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
-process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 const disposeContextMenu = contextMenu({ showInspectElement: true })
 
 async function createWindow(): Promise<void> {
@@ -40,13 +40,13 @@ async function createWindow(): Promise<void> {
   }
 }
 
-app.whenReady().then(async () => {
+void app.whenReady().then(async () => {
   await createWindow()
 })
 
-app.on('activate', async () => {
+app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
-    await createWindow()
+    void createWindow()
   }
 })
 

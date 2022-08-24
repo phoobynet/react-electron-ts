@@ -5,7 +5,8 @@
     "rootDir": ".",
     "target": "ESNext",
     "allowJs": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strictNullChecks": true
   },
   "include": [
     "./**/*.ts"
