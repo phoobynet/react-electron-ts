@@ -4,16 +4,23 @@
   "version": "1.0.0",
   "main": "build/main/main.js",
   "scripts": {
-    "dev": "set NODE_ENV=development && npm run main:build && concurrently \"npm run main:dev:watch\" \"npm run renderer:dev\" \"npm run main:dev:nodemon\"",
+    "dev": "set NODE_ENV=development && npm run main:build && concurrently \"npm run main:dev:watch\" \"npm run renderer:dev\" \"sleep 1 && npm run main:dev:nodemon\"",
     "main:build": "tsc --build main/tsconfig.json",
     "main:dev:watch": "tsc --watch --project main/tsconfig.json",
-    "main:dev:nodemon": "NODE_ENV=development nodemon --watch build/main -e ts,js --exec 'electron .'",
+    "main:dev:nodemon": "NODE_ENV=development nodemon",
     "renderer:dev": "vite",
     "renderer:build": "tsc && vite build",
     "renderer:preview": "vite preview",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "npm run main:build && npm run renderer:build && electron-forge make"
+  },
+  "nodemonConfig": {
+    "ext": "ts,js",
+    "exec": "electron .",
+    "watch": [
+      "build/main"
+    ]
   },
   "dependencies": {
     "classnames": "^2.3.1",
